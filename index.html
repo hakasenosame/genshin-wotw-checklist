@@ -301,6 +301,7 @@ html::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:29;bo
 .kcnt{order:1;margin-left:auto;font-size:14px;font-weight:700;color:#6b5644;font-variant-numeric:tabular-nums;white-space:nowrap}
 .kind button.all{order:2;background:#efe3c8;border:1px solid #c2a97c;color:#6b5644;border-radius:3px;font-size:12px;padding:1px 9px}
 .kind button.all:hover{background:#f6eedc;color:#3f3125;border-color:#a88e7b}
+.kind.solo{display:none}.kind.solo+ul{margin-top:8px}
 /* end kind strip */
 
 /* mobile stamp overlay */
@@ -405,7 +406,7 @@ function build(){
         const subs=[...new Set(items.map(x=>x[4]))];
         for(const sb of subs){const s=items.filter(x=>x[4]===sb);
           inner+=`<div class="kind lm" data-kind><span class="ktog" role="button" tabindex="0" aria-expanded="true"><span class="karr" aria-hidden="true">▶</span>${esc(sb)}</span><span class="kcnt"></span><button type="button" class="all">모두 체크</button></div><ul class="items">${ord(s).map(x=>itemHTML(x,false)).join("")}</ul>`;}
-      }else inner=`<div class="kind lm" data-kind><span class="ktog" role="button" tabindex="0" aria-expanded="true"><span class="karr" aria-hidden="true">▶</span>전체</span><span class="kcnt"></span><button type="button" class="all">모두 체크</button></div><ul class="items">${ord(items).map(x=>itemHTML(x,true)).join("")}</ul>`;
+      }else inner=`<div class="kind lm solo" data-kind><span class="ktog" role="button" tabindex="0" aria-expanded="true"><span class="karr" aria-hidden="true">▶</span>전체</span><span class="kcnt"></span><button type="button" class="all">모두 체크</button></div><ul class="items">${ord(items).map(x=>itemHTML(x,true)).join("")}</ul>`;
       det.innerHTML=`<summary><span class="arrow">▶</span><span class="nm" data-cty="${esc(g)}">${esc(g)}</span><span class="mini" aria-hidden="true"><i></i></span><button type="button" class="gall">모두 체크</button><span class="cnt"></span></summary><div class="grp-body">${inner}</div>`;
       det.querySelectorAll("[data-kind]").forEach(k=>{const kk=key+"|"+k.querySelector(".ktog").textContent.slice(1);k.dataset.key=kk;
         if(!ql&&kindClosed[kk]){k.classList.add("closed");k.querySelector(".ktog").setAttribute("aria-expanded","false");}});
