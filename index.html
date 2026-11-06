@@ -575,7 +575,7 @@ const GID={"1":[84004],"2":[84005],"3":[84001],"4":[84006],"5":[84007],"6":[8400
   function apply(units,mode){
     if(mode==="replace"){done.clear(); units.forEach(u=>done.add(u));}
     else units.forEach(u=>done.add(u));
-    applyDone(); saveLocal(); queueRemote();
+    build(); saveLocal(); queueRemote();
     say(mode==="replace"?`${units.size}개로 덮어씀`:`${[...units].length}개 반영됨`);
   }
   function ask(units){
