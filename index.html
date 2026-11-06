@@ -292,6 +292,16 @@ html::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:29;bo
 .bar{margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)) + 6px);padding-left:calc(max(16px,env(safe-area-inset-left,0px)) - 6px);padding-right:calc(max(16px,env(safe-area-inset-right,0px)) - 6px)}
 }
 /* end mobile frame */
+
+/* kind strip */
+.kind{background:#d9c39a;border-radius:4px;padding:3px 6px 3px 12px;margin:10px 0 6px;color:#6b5644;font-size:14.5px;font-weight:800;letter-spacing:0}
+.kind::after{display:none}
+.kind .karr{color:#6b5644;font-size:10px}
+.ktog:hover{color:#3f3125}
+.kcnt{order:1;margin-left:auto;font-size:14px;font-weight:700;color:#6b5644;font-variant-numeric:tabular-nums;white-space:nowrap}
+.kind button.all{order:2;background:#efe3c8;border:1px solid #c2a97c;color:#6b5644;border-radius:3px;font-size:12px;padding:1px 9px}
+.kind button.all:hover{background:#f6eedc;color:#3f3125;border-color:#a88e7b}
+/* end kind strip */
 </style>
 </head>
 <body>
@@ -386,12 +396,12 @@ function build(){
       let inner="";
       if(c.kinds){
         for(const kk of c.kinds){const s=items.filter(x=>x[3]===kk);if(!s.length)continue;
-          inner+=`<div class="kind l${kk}" data-kind><span class="ktog" role="button" tabindex="0" aria-expanded="true"><span class="karr" aria-hidden="true">▶</span>${KIND[kk]}</span><button type="button" class="all">모두 체크</button></div><ul class="items">${ord(s).map(x=>itemHTML(x,true)).join("")}</ul>`;}
+          inner+=`<div class="kind l${kk}" data-kind><span class="ktog" role="button" tabindex="0" aria-expanded="true"><span class="karr" aria-hidden="true">▶</span>${KIND[kk]}</span><span class="kcnt"></span><button type="button" class="all">모두 체크</button></div><ul class="items">${ord(s).map(x=>itemHTML(x,true)).join("")}</ul>`;}
       }else if(c.bySub){
         const subs=[...new Set(items.map(x=>x[4]))];
         for(const sb of subs){const s=items.filter(x=>x[4]===sb);
-          inner+=`<div class="kind lm" data-kind><span class="ktog" role="button" tabindex="0" aria-expanded="true"><span class="karr" aria-hidden="true">▶</span>${esc(sb)}</span><button type="button" class="all">모두 체크</button></div><ul class="items">${ord(s).map(x=>itemHTML(x,false)).join("")}</ul>`;}
-      }else inner=`<div class="kind lm" data-kind><span class="ktog" role="button" tabindex="0" aria-expanded="true"><span class="karr" aria-hidden="true">▶</span>전체</span><button type="button" class="all">모두 체크</button></div><ul class="items">${ord(items).map(x=>itemHTML(x,true)).join("")}</ul>`;
+          inner+=`<div class="kind lm" data-kind><span class="ktog" role="button" tabindex="0" aria-expanded="true"><span class="karr" aria-hidden="true">▶</span>${esc(sb)}</span><span class="kcnt"></span><button type="button" class="all">모두 체크</button></div><ul class="items">${ord(s).map(x=>itemHTML(x,false)).join("")}</ul>`;}
+      }else inner=`<div class="kind lm" data-kind><span class="ktog" role="button" tabindex="0" aria-expanded="true"><span class="karr" aria-hidden="true">▶</span>전체</span><span class="kcnt"></span><button type="button" class="all">모두 체크</button></div><ul class="items">${ord(items).map(x=>itemHTML(x,true)).join("")}</ul>`;
       det.innerHTML=`<summary><span class="arrow">▶</span><span class="nm" data-cty="${esc(g)}">${esc(g)}</span><span class="mini" aria-hidden="true"><i></i></span><button type="button" class="gall">모두 체크</button><span class="cnt"></span></summary><div class="grp-body">${inner}</div>`;
       det.querySelectorAll("[data-kind]").forEach(k=>{const kk=key+"|"+k.querySelector(".ktog").textContent.slice(1);k.dataset.key=kk;
         if(!ql&&kindClosed[kk]){k.classList.add("closed");k.querySelector(".ktog").setAttribute("aria-expanded","false");}});
@@ -421,7 +431,7 @@ function refresh(){
     det.classList.toggle("alldone",gd===gt); const gb=det.querySelector("button.gall"); if(gb)gb.textContent=gd===gt?"모두 해제":"모두 체크";
     det.querySelectorAll("[data-kind]").forEach(k=>{const ul=k.nextElementSibling;
       const all=[...ul.children].every(li=>li.classList.contains("done"));
-      k.classList.toggle("alldone",all); const bt=k.querySelector("button.all"); if(bt)bt.textContent=all?"모두 해제":"모두 체크";});
+      k.classList.toggle("alldone",all); const kc=k.querySelector(".kcnt"); if(kc){const it=[...ul.children].map(li=>BYID.get(+li.dataset.id)).filter(Boolean); kc.textContent=`${sum(it,doneUnits)} / ${sum(it,units)}`;} const bt=k.querySelector("button.all"); if(bt)bt.textContent=all?"모두 해제":"모두 체크";});
   });
 }
 root.addEventListener("change",e=>{
