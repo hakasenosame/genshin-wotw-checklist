@@ -57,7 +57,7 @@ input[type=search]::placeholder{color:#8f8a80}
 .sync{font-size:12px;color:#7d7a73;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:8em;text-align:right}
 nav.jump{display:flex;gap:6px;flex-wrap:wrap}
 nav.jump a{font-size:13px;font-weight:700;color:var(--cream);text-decoration:none;padding:7px 14px;background:var(--tile);position:relative}
-nav.jump a::before{content:"";position:absolute;inset:2px;border:1px solid #444953;pointer-events:none}
+nav.jump a::before,#hideDone::before{content:"";position:absolute;inset:2px;border:2px solid #444953;pointer-events:none}#hideDone{position:relative}
 nav.jump a:hover{color:var(--gold)}
 nav.jump .cnt{margin-left:6px;color:var(--label);display:inline-block;min-width:3ch;text-align:right}
 section.cat{margin-top:30px;scroll-margin-top:190px}
@@ -140,7 +140,7 @@ li.it.done{background:#efe6d4}
 .gem.multi svg{width:30px;height:26px}
 .gem .g{fill:none;stroke:#c2b192;stroke-width:1.6;stroke-linejoin:round;transition:fill .15s,stroke .15s}
 .gem.multi .g{stroke-width:2.6}
-.gem .g.on{fill:#fac85c;stroke:#c08a2a}
+.gem .g.on{fill:url(#primo);stroke:#a8916b}
 .gem:hover .g:not(.on){stroke:#8f7f5f}
 .gem:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .locked .gem{opacity:.4;cursor:wait}
@@ -267,7 +267,7 @@ summary:has(.nm[data-cty="노드크라이"]) .arrow{--logo:url("data:image/png;b
 summary:has(.nm[data-cty="스네즈나야"]) .arrow{--logo:url("data:image/png;base64,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")}
 /* end nation logos */
 
-h1::before,h1::after,.cat-h h2::before{display:none!important}
+h1::before,h1::after{display:none!important}
 
 .meter,.mini{border-radius:999px}.meter i,.mini i{border-radius:999px}
 
@@ -279,7 +279,7 @@ details.grp:not(.alldone)::after{content:"";position:absolute;top:-6px;right:-6p
 
 /* screen frame */
 @media (min-width:1000px){
-html::after{content:"";position:fixed;inset:6px;border:3px solid #d7cab4;border-radius:14px;pointer-events:none;z-index:30}
+html::after{content:"";position:fixed;inset:6px;border:0;border-radius:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg transform=''%3E%3Cpath d='M16 1.0H14A13.0 13.0 0 0 1 1.0 14V16' fill='none' stroke='%23d7cab4' stroke-width='2'/%3E%3Ccircle cx='4.3' cy='4.3' r='1.7' fill='%23d7cab4'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg transform='translate%2816 0%29 scale%28-1 1%29'%3E%3Cpath d='M16 1.0H14A13.0 13.0 0 0 1 1.0 14V16' fill='none' stroke='%23d7cab4' stroke-width='2'/%3E%3Ccircle cx='4.3' cy='4.3' r='1.7' fill='%23d7cab4'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg transform='translate%280 16%29 scale%281 -1%29'%3E%3Cpath d='M16 1.0H14A13.0 13.0 0 0 1 1.0 14V16' fill='none' stroke='%23d7cab4' stroke-width='2'/%3E%3Ccircle cx='4.3' cy='4.3' r='1.7' fill='%23d7cab4'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg transform='translate%2816 16%29 scale%28-1 -1%29'%3E%3Cpath d='M16 1.0H14A13.0 13.0 0 0 1 1.0 14V16' fill='none' stroke='%23d7cab4' stroke-width='2'/%3E%3Ccircle cx='4.3' cy='4.3' r='1.7' fill='%23d7cab4'/%3E%3C/g%3E%3C/svg%3E"),linear-gradient(#d7cab4,#d7cab4),linear-gradient(#d7cab4,#d7cab4),linear-gradient(#d7cab4,#d7cab4),linear-gradient(#d7cab4,#d7cab4);background-position:left top,right top,left bottom,right bottom,center top,center bottom,left center,right center;background-size:16px 16px,16px 16px,16px 16px,16px 16px,calc(100% - 32px) 2px,calc(100% - 32px) 2px,2px calc(100% - 32px),2px calc(100% - 32px);background-repeat:no-repeat;pointer-events:none;z-index:30}
 html::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:29;background:linear-gradient(to bottom,#eae0ce 9px,rgba(234,224,206,0) 14px,rgba(234,224,206,0) calc(100% - 14px),#eae0ce calc(100% - 9px));box-shadow:inset 0 0 0 9px #eae0ce}
 }
 @media (min-width:1500px){html::after{left:calc((100% - 1310px) / 2 + 6px);right:calc((100% - 1310px) / 2 + 6px)}html::before{left:calc((100% - 1310px) / 2);right:calc((100% - 1310px) / 2)}}
@@ -287,7 +287,7 @@ html::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:29;ba
 
 /* mobile frame */
 @media (max-width:999px){
-html::after{content:"";position:fixed;top:max(4px,env(safe-area-inset-top,0px));bottom:max(4px,env(safe-area-inset-bottom,0px));left:max(4px,env(safe-area-inset-left,0px));right:max(4px,env(safe-area-inset-right,0px));border:2px solid #d7cab4;border-radius:12px;pointer-events:none;z-index:30}
+html::after{content:"";position:fixed;top:max(4px,env(safe-area-inset-top,0px));bottom:max(4px,env(safe-area-inset-bottom,0px));left:max(4px,env(safe-area-inset-left,0px));right:max(4px,env(safe-area-inset-right,0px));border:0;border-radius:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg transform=''%3E%3Cpath d='M16 1.0H14A13.0 13.0 0 0 1 1.0 14V16' fill='none' stroke='%23d7cab4' stroke-width='2'/%3E%3Ccircle cx='4.3' cy='4.3' r='1.7' fill='%23d7cab4'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg transform='translate%2816 0%29 scale%28-1 1%29'%3E%3Cpath d='M16 1.0H14A13.0 13.0 0 0 1 1.0 14V16' fill='none' stroke='%23d7cab4' stroke-width='2'/%3E%3Ccircle cx='4.3' cy='4.3' r='1.7' fill='%23d7cab4'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg transform='translate%280 16%29 scale%281 -1%29'%3E%3Cpath d='M16 1.0H14A13.0 13.0 0 0 1 1.0 14V16' fill='none' stroke='%23d7cab4' stroke-width='2'/%3E%3Ccircle cx='4.3' cy='4.3' r='1.7' fill='%23d7cab4'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cg transform='translate%2816 16%29 scale%28-1 -1%29'%3E%3Cpath d='M16 1.0H14A13.0 13.0 0 0 1 1.0 14V16' fill='none' stroke='%23d7cab4' stroke-width='2'/%3E%3Ccircle cx='4.3' cy='4.3' r='1.7' fill='%23d7cab4'/%3E%3C/g%3E%3C/svg%3E"),linear-gradient(#d7cab4,#d7cab4),linear-gradient(#d7cab4,#d7cab4),linear-gradient(#d7cab4,#d7cab4),linear-gradient(#d7cab4,#d7cab4);background-position:left top,right top,left bottom,right bottom,center top,center bottom,left center,right center;background-size:16px 16px,16px 16px,16px 16px,16px 16px,calc(100% - 32px) 2px,calc(100% - 32px) 2px,2px calc(100% - 32px),2px calc(100% - 32px);background-repeat:no-repeat;pointer-events:none;z-index:30}
 html::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:29;border-style:solid;border-color:#eae0ce;border-width:max(6px,calc(env(safe-area-inset-top,0px) + 2px)) max(6px,calc(env(safe-area-inset-right,0px) + 2px)) max(6px,calc(env(safe-area-inset-bottom,0px) + 2px)) max(6px,calc(env(safe-area-inset-left,0px) + 2px));background:linear-gradient(to bottom,rgba(234,224,206,0) calc(100% - 5px),#eae0ce)}
 .bar{margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)) + 6px);padding-left:calc(max(16px,env(safe-area-inset-left,0px)) - 6px);padding-right:calc(max(16px,env(safe-area-inset-right,0px)) - 6px)}
 }
@@ -305,25 +305,42 @@ html::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:29;bo
 /* end kind strip */
 
 /* mobile stamp overlay */
-@media (max-width:999px){li.it{grid-template-columns:30px 1fr}.date{position:absolute;right:6px;top:0;bottom:0;width:40px;margin:0;z-index:0}.body{position:relative;z-index:1}}
+@media (max-width:999px){li.it{grid-template-columns:30px 1fr}.date{position:absolute;right:6px;top:0;bottom:0;width:40px;margin:0;z-index:0}.body{position:relative;z-index:1}li.it.done .body{padding-right:40px}}
 /* end mobile stamp overlay */
 
 /* io */
 .io{gap:6px}.iob{flex:1;font:inherit;font-size:12.5px;font-weight:700;padding:6px 8px;border:1px solid #c2a97c;background:#efe3c8;color:#6b5644;border-radius:4px;cursor:pointer}
 .iob:hover{background:#f6eedc;color:#3f3125}.locked .iob{opacity:.5;cursor:wait}
 .io-foot{display:none}
-@media (max-width:999px){.bar .io{display:none}.io-foot{display:flex;justify-content:center;gap:8px}.io-foot .iob{flex:0 1 160px}}
+@media (max-width:999px){.bar .io{display:none}.io-foot{display:flex;justify-content:flex-start;gap:8px;margin:0 0 4px}.io-foot .iob{flex:1 1 0}.io-foot .iohelp{flex:0 0 30px!important}}
 .iomodal{position:fixed;inset:0;z-index:50;background:rgba(57,57,57,.35);display:grid;place-items:center;padding:16px}.iobox{background:#f6f1e8;border:2px solid #d1c2aa;border-radius:10px;max-width:360px;width:100%;padding:18px;display:flex;flex-direction:column;gap:8px;box-shadow:0 6px 24px rgba(0,0,0,.18)}.iot{margin:0;font-size:16px;font-weight:800;color:#393939}.ios{margin:0 0 4px;font-size:13.5px;color:#836645}.iobox button{font:inherit;text-align:left;padding:10px 12px;border:1px solid #c2a97c;background:#efe3c8;color:#5a4636;border-radius:6px;font-weight:800;font-size:14px;cursor:pointer}.iobox button:hover{background:#f6eedc}.iobox small{display:block;font-weight:700;font-size:12px;color:#a88e7b;margin-top:2px}.iobox .ioc{text-align:center;background:transparent;border-color:#d1c2aa;color:#836645}
+.iohelp{flex:0 0 30px!important;width:30px;height:30px;padding:0!important;border-radius:50%!important;align-self:center;display:grid;place-items:center;font-size:14px!important;padding:1px 0 0 1px!important}.helpbox{max-width:460px;max-height:min(80vh,640px);overflow:hidden;gap:0;padding:0}.helpscroll{overflow-y:auto;padding:18px 18px 8px;display:flex;flex-direction:column;gap:4px;scrollbar-width:thin;scrollbar-color:#d1c2aa transparent}.helpscroll::-webkit-scrollbar{width:6px}.helpscroll::-webkit-scrollbar-track{background:transparent;margin:10px 0}.helpscroll::-webkit-scrollbar-thumb{background:#d1c2aa;border-radius:3px}.helpfoot{padding:0 18px 16px;border-top:1px solid #e4dac8;padding-top:12px;display:flex}.helpfoot .ioc{flex:1;margin:0!important}.helpbox h3{margin:0 0 4px;font-size:18px;font-weight:800;color:#393939}.helpbox h4{margin:10px 0 2px;font-size:14.5px;font-weight:800;color:#836645}.helpbox p,.helpbox li{margin:0;font-size:13.5px;line-height:1.6;color:#4a4038;font-weight:700}.helpbox ul,.helpbox ol{margin:2px 0 0;padding-left:20px}.helpbox a{color:#836645}.helpbox .hnote{margin-top:10px;font-size:12.5px;color:#8a7f72}
 /* end io */
+
+/* rounded group frame */
+details.grp{border:1px solid #ddd1bd!important;border-radius:9px}
+details.grp::before{content:""!important;display:block!important;position:absolute;inset:2px;border:0;border-radius:0;pointer-events:none;z-index:1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg transform=''%3E%3Cpath d='M8 0.5H7A6.5 6.5 0 0 1 0.5 7V8' fill='none' stroke='%23e4dac8' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg transform='translate%288 0%29 scale%28-1 1%29'%3E%3Cpath d='M8 0.5H7A6.5 6.5 0 0 1 0.5 7V8' fill='none' stroke='%23e4dac8' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg transform='translate%280 8%29 scale%281 -1%29'%3E%3Cpath d='M8 0.5H7A6.5 6.5 0 0 1 0.5 7V8' fill='none' stroke='%23e4dac8' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg transform='translate%288 8%29 scale%28-1 -1%29'%3E%3Cpath d='M8 0.5H7A6.5 6.5 0 0 1 0.5 7V8' fill='none' stroke='%23e4dac8' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E"),linear-gradient(#e4dac8,#e4dac8),linear-gradient(#e4dac8,#e4dac8),linear-gradient(#e4dac8,#e4dac8),linear-gradient(#e4dac8,#e4dac8);background-position:left top,right top,left bottom,right bottom,center top,center bottom,left center,right center;background-size:8px 8px,8px 8px,8px 8px,8px 8px,calc(100% - 16px) 1px,calc(100% - 16px) 1px,1px calc(100% - 16px),1px calc(100% - 16px);background-repeat:no-repeat}
+details.grp>summary{border-radius:8px}
+details.grp[open]>summary{border-radius:8px 8px 0 0}
+/* end rounded group frame */
+
+/* pill buttons */
+summary button.gall,.kind button.all{border-radius:999px!important;padding-left:12px!important;padding-right:12px!important}
+/* end pill buttons */
+
+.date::before{transform:rotate(10deg)}
+@media (hover:hover) and (pointer:fine){li.it{cursor:pointer}li.it .desc,li.it .tag{cursor:pointer}}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><pattern id="primo" patternContentUnits="objectBoundingBox" width="1" height="1"><rect x="0" y="0" width=".5" height=".5" fill="#ffdada"/><rect x=".5" y="0" width=".5" height=".5" fill="#d0bdff"/><rect x="0" y=".5" width=".5" height=".5" fill="#99d9ea"/><rect x=".5" y=".5" width=".5" height=".5" fill="#7092be"/></pattern></defs></svg>
 
 <div class="deco deco-l" aria-hidden="true"></div><div class="deco deco-r" aria-hidden="true"></div>
 <div class="wrap">
   <aside class="side">
   <header class="top">
     <h1>천지만물 체크리스트</h1>
+    <div class="io io-foot"><button type="button" class="iob" data-io="in">기록 불러오기</button> <button type="button" class="iob" data-io="out">기록 내보내기</button><button type="button" class="iob iohelp" aria-label="사용법" title="사용법">?</button><input type="file" class="iofile" accept=".json,application/json" hidden></div>
     
   </header>
 
@@ -338,14 +355,12 @@ html::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:29;bo
       <button class="chip" id="hideDone" aria-pressed="false">완료 숨기기</button>
     </div>
     <div class="row"><nav class="jump" id="jump"></nav></div>
-    <div class="row io"><button type="button" class="iob" data-io="in">기록 불러오기</button><button type="button" class="iob" data-io="out">기록 내보내기</button><input type="file" class="iofile" accept=".json,application/json" hidden></div>
+    <div class="row io"><button type="button" class="iob" data-io="in">기록 불러오기</button><button type="button" class="iob" data-io="out">기록 내보내기</button><button type="button" class="iob iohelp" aria-label="사용법" title="사용법">?</button><input type="file" class="iofile" accept=".json,application/json" hidden></div>
   </div>
   </aside>
 
   <main id="root"></main>
   <footer>
-    <p class="io io-foot"><button type="button" class="iob" data-io="in">기록 불러오기</button> <button type="button" class="iob" data-io="out">기록 내보내기</button><input type="file" class="iofile" accept=".json,application/json" hidden></p>
-    <p>기록 파일은 UIAF 형식(JSON)입니다. 스냅 후타오, YaeAchievement 같은 업적 기록 프로그램에서 내보낸 파일을 불러오면 달성한 업적이 자동으로 체크됩니다. 불러올 때 기존 체크에 더할지, 파일 내용으로 덮어쓸지 고를 수 있습니다.</p>
     <p>업적 설명과 팁 출처: <a href="https://namu.wiki/w/%EC%9B%90%EC%8B%A0/%EC%97%85%EC%A0%81/%EC%B2%9C%EC%A7%80%EB%A7%8C%EB%AC%BC" target="_blank" rel="noopener">나무위키 「원신/업적/천지만물」</a> (2026년 10월 기준), <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/kr/" target="_blank" rel="noopener">CC BY-NC-SA 2.0 KR</a>. 이 페이지도 같은 조건으로 공유됩니다.</p>
     <p>원신과 관련 명칭, 양옆의 게임 화면은 HoYoverse의 자산입니다. 이 페이지는 비공식·비영리 팬 제작물입니다.</p>
     <p>업적 이름을 누르면 공략 검색이 새 탭으로 열립니다.</p>
@@ -458,9 +473,14 @@ root.addEventListener("change",e=>{
   else e.target.checked?done.add(id):done.delete(id);
   paintItem(li); saveLocal(); queueRemote(); refresh();
 });
+function onText(e){const el=e.target;for(const n of el.childNodes){if(n.nodeType!==3||!n.textContent.trim())continue;const r=document.createRange();r.selectNodeContents(n);for(const b of r.getClientRects())if(e.clientX>=b.left&&e.clientX<=b.right&&e.clientY>=b.top&&e.clientY<=b.bottom)return true;}return false;}
+function rowGem(e){const li=e.target.closest("li.it");if(!li||e.target.closest("a,button,.tiers,.tipbody,input"))return null;
+  const s=window.getSelection&&String(window.getSelection());if(s)return null;
+  if(!DESK.matches&&onText(e))return null;return li.querySelector(".gem");}
+const DESK=window.matchMedia("(hover:hover) and (pointer:fine)");
 root.addEventListener("click",e=>{
   tracking=true;
-  const gm=e.target.closest(".gem");
+  const gm=e.target.closest(".gem")||rowGem(e);
   if(gm){ if(root.classList.contains("locked")){sync.textContent="불러오는 중…";return;}
     const li=gm.closest("li"), x=BYID.get(+li.dataset.id); tracking=true;
     if(x[8]){const L=x[8].length, nx=(doneUnits(x)+1)%(L+1); x[8].forEach((_,i)=>i<nx?done.add(TK(x[0],i+1)):done.delete(TK(x[0],i+1)));}
@@ -586,11 +606,26 @@ const GID={"1":[84004],"2":[84005],"3":[84001],"4":[84006],"5":[84007],"6":[8400
     ov.addEventListener("click",e=>{const b=e.target.closest("button"); if(!b){if(e.target===ov)close();return;} const m=b.dataset.m; close(); if(m!=="cancel")apply(units,m); else say("불러오기 취소");});
     ov.querySelector("button").focus();
   }
-  document.querySelectorAll(".iob").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".iob:not(.iohelp)").forEach(b=>b.addEventListener("click",()=>{
     if(root.classList.contains("locked")){say("불러오는 중…");return;}
     if(b.dataset.io==="out")doExport(); else b.parentElement.querySelector(".iofile").click();
   }));
   document.querySelectorAll(".iofile").forEach(f=>f.addEventListener("change",()=>{if(f.files[0])doImport(f.files[0]);f.value="";}));
+})();
+
+(function(){
+  const HELP="<h3>사용법</h3>\n<h4>업적 체크하기</h4><p>업적 왼쪽의 별을 누르면 달성으로 표시됩니다. 한 번 더 누르면 해제됩니다. 컴퓨터에서는 업적 상자의 아무 곳이나, 휴대폰에서는 상자의 글자 없는 빈 곳을 눌러도 됩니다.</p>\n<h4>단계가 있는 업적</h4><p>단계가 나뉜 업적은 별을 누를 때마다 한 단계씩 올라갑니다. 3단계 다음에 한 번 더 누르면 처음으로 돌아갑니다. 업적 이름 아래의 단계 버튼을 눌러 원하는 단계로 바로 맞출 수 있습니다.</p>\n<h4>저장</h4><p>체크한 내용은 지금 쓰는 브라우저에 자동으로 저장됩니다. 「기록 내보내기」로 파일을 저장해 두세요.</p>\n<h4>기록 불러오기</h4><p>게임 업적 기록이나 내보낸 백업 파일(UIAF 형식, .json)을 불러오면 달성한 업적이 자동으로 체크됩니다. 불러올 때는 둘 중 하나를 고릅니다.</p>\n<ul><li><b>기존 체크에 더하기</b>: 지금 체크는 그대로 두고 파일의 기록을 추가합니다.</li><li><b>덮어쓰기</b>: 지금 체크를 지우고 파일 내용과 똑같이 맞춥니다.</li></ul>\n<h4>게임 기록 가져오기 (YaeAchievement)</h4>\n<ol><li><a href=\"https://github.com/HolographicHat/YaeAchievement/releases\" target=\"_blank\" rel=\"noopener\">YaeAchievement 공식 GitHub</a>에서 YaeAchievement.exe를 받습니다. 윈도우 PC 전용입니다.</li>\n<li>실행한 뒤 원신 실행 파일(GenshinImpact.exe) 위치를 지정합니다.</li>\n<li>게임이 켜지면 문을 눌러 입장합니다. 기록을 읽은 뒤 게임이 자동으로 종료됩니다.</li>\n<li>검은 창에 나오는 목록에서 UIAF 파일로 저장하는 항목의 번호를 입력합니다.</li>\n<li>저장된 .json 파일을 「기록 불러오기」로 열고 <b>덮어쓰기</b>를 고릅니다.</li></ol>\n<p class=\"hnote\">※ YaeAchievement는 HoYoverse와 관련 없는 비공식 도구입니다. 반드시 공식 저장소에서 받아 주세요. 스냅 후타오 등 UIAF 형식을 지원하는 다른 프로그램의 파일도 같은 방법으로 불러올 수 있습니다.</p>";
+  function openHelp(){
+    const ov=document.createElement("div"); ov.className="iomodal";
+    ov.innerHTML=`<div class="iobox helpbox" role="dialog" aria-modal="true" aria-label="사용법"><div class="helpscroll">${HELP}</div><div class="helpfoot"><button type="button" class="ioc">닫기</button></div></div>`;
+    document.body.appendChild(ov);
+    const close=()=>{ov.remove();document.removeEventListener("keydown",esc);};
+    const esc=e=>{if(e.key==="Escape")close();};
+    document.addEventListener("keydown",esc);
+    ov.addEventListener("click",e=>{if(e.target===ov||e.target.classList.contains("ioc"))close();});
+    ov.querySelector(".ioc").focus({preventScroll:true}); ov.querySelector(".helpscroll").scrollTop=0;
+  }
+  document.querySelectorAll(".iohelp").forEach(b=>b.addEventListener("click",openHelp));
 })();
 </script>
 
