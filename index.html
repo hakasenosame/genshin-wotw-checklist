@@ -313,6 +313,7 @@ html::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:29;bo
 .iob:hover{background:#f6eedc;color:#3f3125}.locked .iob{opacity:.5;cursor:wait}
 .io-foot{display:none}
 @media (max-width:999px){.bar .io{display:none}.io-foot{display:flex;justify-content:center;gap:8px}.io-foot .iob{flex:0 1 160px}}
+.iomodal{position:fixed;inset:0;z-index:50;background:rgba(57,57,57,.35);display:grid;place-items:center;padding:16px}.iobox{background:#f6f1e8;border:2px solid #d1c2aa;border-radius:10px;max-width:360px;width:100%;padding:18px;display:flex;flex-direction:column;gap:8px;box-shadow:0 6px 24px rgba(0,0,0,.18)}.iot{margin:0;font-size:16px;font-weight:800;color:#393939}.ios{margin:0 0 4px;font-size:13.5px;color:#836645}.iobox button{font:inherit;text-align:left;padding:10px 12px;border:1px solid #c2a97c;background:#efe3c8;color:#5a4636;border-radius:6px;font-weight:800;font-size:14px;cursor:pointer}.iobox button:hover{background:#f6eedc}.iobox small{display:block;font-weight:700;font-size:12px;color:#a88e7b;margin-top:2px}.iobox .ioc{text-align:center;background:transparent;border-color:#d1c2aa;color:#836645}
 /* end io */
 </style>
 </head>
@@ -344,7 +345,7 @@ html::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:29;bo
   <main id="root"></main>
   <footer>
     <p class="io io-foot"><button type="button" class="iob" data-io="in">기록 불러오기</button> <button type="button" class="iob" data-io="out">기록 내보내기</button><input type="file" class="iofile" accept=".json,application/json" hidden></p>
-    <p>기록 파일은 UIAF 형식(JSON)입니다. 스냅 후타오, YaeAchievement 같은 업적 기록 프로그램에서 내보낸 파일을 불러오면 달성한 업적이 자동으로 체크됩니다. 이미 체크한 업적은 해제되지 않습니다.</p>
+    <p>기록 파일은 UIAF 형식(JSON)입니다. 스냅 후타오, YaeAchievement 같은 업적 기록 프로그램에서 내보낸 파일을 불러오면 달성한 업적이 자동으로 체크됩니다. 불러올 때 기존 체크에 더할지, 파일 내용으로 덮어쓸지 고를 수 있습니다.</p>
     <p>업적 설명과 팁 출처: <a href="https://namu.wiki/w/%EC%9B%90%EC%8B%A0/%EC%97%85%EC%A0%81/%EC%B2%9C%EC%A7%80%EB%A7%8C%EB%AC%BC" target="_blank" rel="noopener">나무위키 「원신/업적/천지만물」</a> (2026년 10월 기준), <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/kr/" target="_blank" rel="noopener">CC BY-NC-SA 2.0 KR</a>. 이 페이지도 같은 조건으로 공유됩니다.</p>
     <p>원신과 관련 명칭, 양옆의 게임 화면은 HoYoverse의 자산입니다. 이 페이지는 비공식·비영리 팬 제작물입니다.</p>
     <p>업적 이름을 누르면 공략 검색이 새 탭으로 열립니다.</p>
@@ -563,14 +564,27 @@ const GID={"1":[84004],"2":[84005],"3":[84001],"4":[84006],"5":[84007],"6":[8400
       let j; try{j=JSON.parse(r.result);}catch(e){say("파일을 읽을 수 없음");return;}
       const list=Array.isArray(j)?j:(j&&Array.isArray(j.list)?j.list:null);
       if(!list){say("UIAF 형식이 아님");return;}
-      let n=0;
+      const units=new Set();
       for(const it of list){const g=+(it&&(it.id??it.Id)); const st=it&&(it.status??it.Status);
         const ok=st===undefined||st===2||st===3||st==="STATUS_FINISHED"||st==="STATUS_REWARD_TAKEN";
-        const u=g2u.get(g); if(u!==undefined&&ok&&!done.has(u)){done.add(u);n++;}}
-      applyDone(); saveLocal(); queueRemote();
-      say(n?`${n}개 새로 체크됨`:"새로 체크할 업적 없음");
+        const u=g2u.get(g); if(u!==undefined&&ok)units.add(u);}
+      ask(units);
     };
     r.readAsText(file);
+  }
+  function apply(units,mode){
+    if(mode==="replace"){done.clear(); units.forEach(u=>done.add(u));}
+    else units.forEach(u=>done.add(u));
+    applyDone(); saveLocal(); queueRemote();
+    say(mode==="replace"?`${units.size}개로 덮어씀`:`${[...units].length}개 반영됨`);
+  }
+  function ask(units){
+    const ov=document.createElement("div"); ov.className="iomodal";
+    ov.innerHTML=`<div class="iobox" role="dialog" aria-modal="true" aria-label="기록 불러오기"><p class="iot">달성 기록 <b>${units.size}</b>개를 찾았습니다.</p><p class="ios">어떻게 불러올까요?</p><button type="button" data-m="add">기존 체크에 더하기<small>지금 체크한 업적은 그대로 두고, 파일의 달성 기록만 추가합니다.</small></button><button type="button" data-m="replace">파일 내용으로 덮어쓰기<small>지금 체크를 모두 지우고 파일 내용과 똑같이 맞춥니다.</small></button><button type="button" class="ioc" data-m="cancel">취소</button></div>`;
+    document.body.appendChild(ov);
+    const close=()=>ov.remove();
+    ov.addEventListener("click",e=>{const b=e.target.closest("button"); if(!b){if(e.target===ov)close();return;} const m=b.dataset.m; close(); if(m!=="cancel")apply(units,m); else say("불러오기 취소");});
+    ov.querySelector("button").focus();
   }
   document.querySelectorAll(".iob").forEach(b=>b.addEventListener("click",()=>{
     if(root.classList.contains("locked")){say("불러오는 중…");return;}
